@@ -1,0 +1,29 @@
+{
+  "pluginAlias": "Lay-Z Spa",
+  "pluginType": "accessory",
+  "singular": false,
+  "headerDisplay": "Control the heating and massage of your lay-z whirlpool/hot tub",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "title": "Name",
+        "type": "string",
+        "default": "Whirlpool",
+        "required": true
+      },
+      "username": {
+        "title": "Lay-Z Username (email)",
+        "type": "string",
+        "required": true,
+        "description": "Email address for your lay-z account (to retrieve api key)"
+      },
+      "password": {
+        "title": "Lay-Z Password",
+        "type": "string",
+        "required": true,
+        "description": "Password for your lay-z account"
+      }
+    }
+  }
+}
