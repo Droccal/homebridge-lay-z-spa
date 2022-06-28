@@ -41,10 +41,10 @@ export class HotTubAccessory {
     this.heatingService = this.accessory.getService(this.platform.Service.HeaterCooler) || this.accessory.addService(this.platform.Service.HeaterCooler)
     this.heatingService.setCharacteristic(this.platform.Characteristic.Name, 'Heating')
 
-    this.waveService = this.accessory.getService(this.platform.Service.Outlet) || this.accessory.addService(this.platform.Service.Outlet)
+    this.waveService = this.accessory.getService('Wave Toggle') || this.accessory.addService(this.platform.Service.Outlet, 'Wave Toggle', 'cl4y2izfm00000e66uhbpjepl')
     this.waveService.setCharacteristic(this.platform.Characteristic.Name, 'Waves')
 
-    this.filterService = this.accessory.getService(this.platform.Service.Outlet) || this.accessory.addService(this.platform.Service.Outlet)
+    this.filterService = this.accessory.getService('Filter Toggle') || this.accessory.addService(this.platform.Service.Outlet, 'Filter Toggle', 'cl4y2jbxf00010e66yqzftf3z')
     this.filterService.setCharacteristic(this.platform.Characteristic.Name, 'Filter')
 
     this.heatingService
@@ -104,7 +104,7 @@ export class HotTubAccessory {
     }
 
     getHeader (): Headers {
-        const h = {} as Headers
+        const h = new Headers()
         h.set('Content-Type', 'application/x-www-form-urlencoded')
         h.set('X-Requested-With', 'com.wiltonbradley.layzspa')
         h.set('User-Agent', 'Mozilla/5.0 (Linux; Android 7.1.2; SM-G930L Build/N2G48H; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/75.0.3770.143 Mobile Safari/537.36)')
