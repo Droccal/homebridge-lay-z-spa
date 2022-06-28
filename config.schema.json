@@ -1,8 +1,9 @@
 {
-  "pluginAlias": "Lay-Z Spa",
-  "pluginType": "accessory",
-  "singular": false,
+  "pluginAlias": "Lay-Z-Spa",
+  "pluginType": "platform",
+  "singular": true,
   "headerDisplay": "Control the heating and massage of your lay-z whirlpool/hot tub",
+  "footerDisplay": "PLEASE BE VERY CAREFUL USING THE PLUGIN HERE, YOU COULD BREAK YOUR LAY-Z-SPA!!!",
   "schema": {
     "type": "object",
     "properties": {

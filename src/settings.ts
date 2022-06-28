@@ -1,2 +1,2 @@
-export const PLATFORM_NAME = 'lay-z-spa-whirlpool'
+export const PLATFORM_NAME = 'Lay-Z-Spa'
 export const PLUGIN_NAME = 'homebridge-lay-z-spa'
