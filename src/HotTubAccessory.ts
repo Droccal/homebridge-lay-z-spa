@@ -38,7 +38,7 @@ export class HotTubAccessory {
         .setCharacteristic(this.platform.Characteristic.Model, 'Lay-Z')
         .setCharacteristic(this.platform.Characteristic.SerialNumber, 'P05335')
 
-    this.heatingService = this.accessory.getService(this.platform.Service.HeaterCooler) || this.accessory.addService(this.platform.Service.HeaterCooler)
+    this.heatingService = this.accessory.getService(this.platform.Service.Thermostat) || this.accessory.addService(this.platform.Service.Thermostat)
     this.heatingService.setCharacteristic(this.platform.Characteristic.Name, 'Heating')
 
     this.waveService = this.accessory.getService('Wave Toggle') || this.accessory.addService(this.platform.Service.Outlet, 'Wave Toggle', 'cl4y2izfm00000e66uhbpjepl')
@@ -53,19 +53,23 @@ export class HotTubAccessory {
         .onSet(this.setOnState.bind(this))
 
     this.heatingService
-        .getCharacteristic(this.platform.Characteristic.CurrentHeaterCoolerState)
-        .onGet(this.getCurrentHeaterState.bind(this))
-        .onSet(this.setCurrentHeaterState.bind(this))
+        .getCharacteristic(this.platform.Characteristic.TargetHeaterCoolerState)
+        .onGet(this.getTargetHeaterState.bind(this))
+        .onSet(this.setTargetHeaterState.bind(this))
         .setProps({
-            maxValue: this.platform.Characteristic.CurrentHeaterCoolerState.HEATING,
+            maxValue: this.platform.Characteristic.TargetHeaterCoolerState.HEAT,
             validValues: [
-                this.platform.Characteristic.CurrentHeaterCoolerState.INACTIVE,
-                this.platform.Characteristic.CurrentHeaterCoolerState.HEATING,
+                this.platform.Characteristic.TargetHeaterCoolerState.AUTO,
+                this.platform.Characteristic.TargetHeaterCoolerState.HEAT,
             ],
         })
 
     this.heatingService
-        .getCharacteristic(this.platform.Characteristic.HeatingThresholdTemperature)
+        .getCharacteristic(this.platform.Characteristic.CurrentHeatingCoolingState)
+        .onGet(this.getCurrentHeaterState.bind(this))
+
+    this.heatingService
+        .getCharacteristic(this.platform.Characteristic.TargetTemperature)
         .onGet(this.getHeatingTargetTemp.bind(this))
         .onSet(this.setHeatingTargetTemp.bind(this))
         .setProps({
@@ -175,7 +179,13 @@ export class HotTubAccessory {
             : this.platform.Characteristic.CurrentHeaterCoolerState.INACTIVE
     }
 
-    async setCurrentHeaterState (value: CharacteristicValue) {
+    getTargetHeaterState (): CharacteristicValue {
+        return this.currentState.heatingOn
+            ? this.platform.Characteristic.TargetHeaterCoolerState.HEAT
+            : this.platform.Characteristic.TargetHeaterCoolerState.AUTO
+    }
+
+    async setTargetHeaterState (value: CharacteristicValue) {
         this.platform.log.debug('Set Characteristic Filter and Heating ->', value)
         this.currentState.filterOn = value as boolean
         this.currentState.heatingOn = value as boolean
