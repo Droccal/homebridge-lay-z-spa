@@ -10,7 +10,7 @@ export interface HotTubState {
     heatingOn: boolean,
     filterOn: boolean,
     wavesOn: boolean,
-    lastFetch: Date
+    lastFetch: Date | undefined
 }
 
 export class HotTubAccessory {
@@ -26,7 +26,7 @@ export class HotTubAccessory {
         heatingOn: false,
         filterOn: false,
         wavesOn: false,
-        lastFetch: new Date(0)
+        lastFetch: undefined
     }
 
     constructor (
@@ -127,8 +127,8 @@ export class HotTubAccessory {
     }
 
     async getCurrentStatus (): Promise<HotTubState> {
-        if (((new Date().getTime() - this.currentState.lastFetch.getTime()) / 1000) < (60 * 1000)) {
-            this.platform.log.debug('Last fetch was just a few minutes ago, using last state')
+        if (this.currentState.lastFetch && (new Date().getTime() - this.currentState.lastFetch.getTime()) < (60 * 1000)) {
+            this.platform.log.debug('Last fetch was under a minute ago, using last state')
             return this.currentState
         }
         try {

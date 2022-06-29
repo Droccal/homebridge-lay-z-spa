@@ -1,3 +1,6 @@
+## [1.0.6] 29.06.2022
+- fix caching of state
+
 ## [1.0.5] 29.06.2022
 - fix characteristics of thermostat once again
 
