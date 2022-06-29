@@ -1,7 +1,7 @@
 {
   "displayName": "Hombedrige Lay-Z-Spa",
   "name": "homebridge-lay-z-spa",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Homebridge plugin for controlling a lay-z spa whirlpool",
   "license": "Apache-2.0",
   "author": "Thomas Helmel <droccahl@gmail.com>",

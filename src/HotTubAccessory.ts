@@ -15,6 +15,7 @@ export interface HotTubState {
 
 export class HotTubAccessory {
     private heatingService: Service
+    private powerService: Service
     private waveService: Service
     private filterService: Service
 
@@ -44,29 +45,39 @@ export class HotTubAccessory {
     this.waveService = this.accessory.getService('Wave Toggle') || this.accessory.addService(this.platform.Service.Outlet, 'Wave Toggle', 'cl4y2izfm00000e66uhbpjepl')
     this.waveService.setCharacteristic(this.platform.Characteristic.Name, 'Waves')
 
+    this.powerService = this.accessory.getService('On/Off Toggle') || this.accessory.addService(this.platform.Service.Outlet, 'On/Off Toggle', 'cl4zd53hd00020e66521htk8j')
+    this.powerService.setCharacteristic(this.platform.Characteristic.Name, 'On/Off')
+
     this.filterService = this.accessory.getService('Filter Toggle') || this.accessory.addService(this.platform.Service.Outlet, 'Filter Toggle', 'cl4y2jbxf00010e66yqzftf3z')
     this.filterService.setCharacteristic(this.platform.Characteristic.Name, 'Filter')
 
-    this.heatingService
+    this.powerService
         .getCharacteristic(this.platform.Characteristic.On)
         .onGet(this.getOnState.bind(this))
         .onSet(this.setOnState.bind(this))
 
     this.heatingService
-        .getCharacteristic(this.platform.Characteristic.TargetHeaterCoolerState)
+        .getCharacteristic(this.platform.Characteristic.TargetHeatingCoolingState)
         .onGet(this.getTargetHeaterState.bind(this))
         .onSet(this.setTargetHeaterState.bind(this))
         .setProps({
-            maxValue: this.platform.Characteristic.TargetHeaterCoolerState.HEAT,
+            maxValue: this.platform.Characteristic.TargetHeatingCoolingState.HEAT,
             validValues: [
-                this.platform.Characteristic.TargetHeaterCoolerState.AUTO,
-                this.platform.Characteristic.TargetHeaterCoolerState.HEAT,
+                this.platform.Characteristic.TargetHeatingCoolingState.OFF,
+                this.platform.Characteristic.TargetHeatingCoolingState.HEAT,
             ],
         })
 
     this.heatingService
         .getCharacteristic(this.platform.Characteristic.CurrentHeatingCoolingState)
         .onGet(this.getCurrentHeaterState.bind(this))
+        .setProps({
+            maxValue: this.platform.Characteristic.CurrentHeatingCoolingState.HEAT,
+            validValues: [
+                this.platform.Characteristic.CurrentHeatingCoolingState.OFF,
+                this.platform.Characteristic.CurrentHeatingCoolingState.HEAT,
+            ],
+        })
 
     this.heatingService
         .getCharacteristic(this.platform.Characteristic.TargetTemperature)
