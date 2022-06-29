@@ -186,8 +186,8 @@ export class HotTubAccessory {
 
     getCurrentHeaterState (): CharacteristicValue {
         return this.currentState.heatingOn
-            ? this.platform.Characteristic.CurrentHeaterCoolerState.HEATING
-            : this.platform.Characteristic.CurrentHeaterCoolerState.INACTIVE
+            ? this.platform.Characteristic.CurrentHeatingCoolingState.HEAT
+            : this.platform.Characteristic.CurrentHeatingCoolingState.OFF
     }
 
     getTargetHeaterState (): CharacteristicValue {

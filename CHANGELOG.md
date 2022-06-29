@@ -1,3 +1,6 @@
+## [1.0.5] 29.06.2022
+- fix characteristics of thermostat once again
+
 ## [1.0.4] 29.06.2022
 - have own toggle to power on
 - fix characteristics of thermostat
