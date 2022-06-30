@@ -9,6 +9,10 @@
     "type": "git",
     "url": "https://github.com/Droccal/homebridge-lay-z-spa.git"
   },
+  "funding": {
+    "type" : "paypal",
+    "url" : "https://paypal.me/thomashelmel"
+  },
   "bugs": {
     "url": "https://github.com/Droccal/homebridge-lay-z-spa.git/issues"
   },
