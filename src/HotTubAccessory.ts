@@ -246,7 +246,7 @@ export class HotTubAccessory {
     async setFilterOnState (value: CharacteristicValue) {
         this.platform.log.debug('Set Characteristic Filter -> ', value)
         this.currentState.filterOn = value as boolean
-        const targetFilterState = this.currentState.heatingOn ? 'turn_filter_on' : 'turn_filter_off'
+        const targetFilterState = this.currentState.filterOn ? 'turn_filter_on' : 'turn_filter_off'
 
         if (!this.currentState.filterOn && this.currentState.heatingOn) {
             this.currentState.heatingOn = value as boolean
