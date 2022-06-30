@@ -246,8 +246,21 @@ export class HotTubAccessory {
     async setFilterOnState (value: CharacteristicValue) {
         this.platform.log.debug('Set Characteristic Filter -> ', value)
         this.currentState.filterOn = value as boolean
-        const targetState = this.currentState.filterOn ? 'turn_filter_on' : 'turn_filter_off'
-        await fetch(this.platform.baseUrl + `gizwits${targetState}?api_token=${this.platform.apiToken}&did=${this.platform.deviceId}`, {
+        const targetFilterState = this.currentState.heatingOn ? 'turn_filter_on' : 'turn_filter_off'
+
+        if (!this.currentState.filterOn && this.currentState.heatingOn) {
+            this.currentState.heatingOn = value as boolean
+            const targetHeatingState = this.currentState.heatingOn ? 'turn_heat_on' : 'turn_heat_off'
+            const response = await fetch(this.platform.baseUrl + `gizwits/${targetHeatingState}?api_token=${this.platform.apiToken}&did=${this.platform.deviceId}`, {
+                method: 'POST',
+                headers: this.getHeader()
+            })
+            if (!response.ok) {
+                this.platform.log.error('Could not set heating state, to avoid damage to the whirlpool filter will not be turned off.')
+                return
+            }
+        }
+        await fetch(this.platform.baseUrl + `gizwits/${targetFilterState}?api_token=${this.platform.apiToken}&did=${this.platform.deviceId}`, {
             method: 'POST',
             headers: this.getHeader()
         })
