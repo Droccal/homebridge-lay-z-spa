@@ -1,3 +1,6 @@
+## [1.0.7] 30.06.2022
+- update state after set
+
 ## [1.0.6] 29.06.2022
 - fix caching of state
 

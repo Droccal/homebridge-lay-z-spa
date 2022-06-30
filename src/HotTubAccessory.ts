@@ -126,8 +126,8 @@ export class HotTubAccessory {
         return h
     }
 
-    async getCurrentStatus (): Promise<HotTubState> {
-        if (this.currentState.lastFetch && (new Date().getTime() - this.currentState.lastFetch.getTime()) < (60 * 1000)) {
+    async getCurrentStatus (force: boolean = false): Promise<HotTubState> {
+        if (!force && this.currentState.lastFetch && (new Date().getTime() - this.currentState.lastFetch.getTime()) < (60 * 1000)) {
             this.platform.log.debug('Last fetch was under a minute ago, using last state')
             return this.currentState
         }
@@ -165,6 +165,7 @@ export class HotTubAccessory {
             method: 'POST',
             headers: this.getHeader()
         })
+        await this.getCurrentStatus(true)
     }
 
     getOnState (): CharacteristicValue {
@@ -182,6 +183,7 @@ export class HotTubAccessory {
             method: 'POST',
             headers: this.getHeader()
         })
+        await this.getCurrentStatus(true)
     }
 
     getCurrentHeaterState (): CharacteristicValue {
@@ -215,6 +217,7 @@ export class HotTubAccessory {
             method: 'POST',
             headers: this.getHeader()
         })
+        await this.getCurrentStatus(true)
     }
 
     getHeatingTargetTemp (): CharacteristicValue {
@@ -233,6 +236,7 @@ export class HotTubAccessory {
             method: 'POST',
             headers: this.getHeader()
         })
+        await this.getCurrentStatus(true)
     }
 
     getFilterOnState (): CharacteristicValue {
@@ -247,5 +251,6 @@ export class HotTubAccessory {
             method: 'POST',
             headers: this.getHeader()
         })
+        await this.getCurrentStatus(true)
     }
 }
