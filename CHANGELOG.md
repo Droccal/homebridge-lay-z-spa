@@ -1,3 +1,7 @@
+## [1.0.8] 30.06.2022
+- disable heating when turning of filter (to avoid damage)
+- fix typo in filter
+
 ## [1.0.7] 30.06.2022
 - update state after set
 
