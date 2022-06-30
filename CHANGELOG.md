@@ -1,3 +1,6 @@
+## [1.0.9] 30.06.2022
+- fix wrong usage
+
 ## [1.0.8] 30.06.2022
 - disable heating when turning of filter (to avoid damage)
 - fix typo in filter
