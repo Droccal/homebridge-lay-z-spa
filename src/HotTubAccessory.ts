@@ -150,6 +150,20 @@ export class HotTubAccessory {
             this.currentState.wavesOn = result.data.attr.wave_power as boolean
             this.currentState.lastFetch = new Date()
 
+            this.powerService.getCharacteristic(this.platform.Characteristic.On).updateValue(this.currentState.power)
+            this.filterService.getCharacteristic(this.platform.Characteristic.On).updateValue(this.currentState.filterOn)
+            this.waveService.getCharacteristic(this.platform.Characteristic.On).updateValue(this.currentState.wavesOn)
+            this.heatingService.getCharacteristic(this.platform.Characteristic.TargetTemperature).updateValue(this.currentState.targetTemp)
+            this.heatingService.getCharacteristic(this.platform.Characteristic.CurrentTemperature).updateValue(this.currentState.currentTemp)
+            this.heatingService.getCharacteristic(this.platform.Characteristic.CurrentHeatingCoolingState).updateValue(
+                this.currentState.heatingOn
+                    ? this.platform.Characteristic.CurrentHeatingCoolingState.HEAT
+                    : this.platform.Characteristic.CurrentHeatingCoolingState.OFF)
+            this.heatingService.getCharacteristic(this.platform.Characteristic.TargetHeatingCoolingState).updateValue(
+                this.currentState.heatingOn
+                    ? this.platform.Characteristic.TargetHeatingCoolingState.HEAT
+                    : this.platform.Characteristic.TargetHeatingCoolingState.OFF)
+
             return this.currentState
         } catch (e) {
             this.platform.log.error('Something went wrong while trying to get stauts of device', e)

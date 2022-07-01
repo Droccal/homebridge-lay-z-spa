@@ -1,3 +1,6 @@
+## [1.1.0] 01.07.2022
+- update all characteristics so home app shows changes immediately
+
 ## [1.0.9] 30.06.2022
 - fix wrong usage
 
