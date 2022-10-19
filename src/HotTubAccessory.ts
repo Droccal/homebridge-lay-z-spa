@@ -142,13 +142,24 @@ export class HotTubAccessory {
                 return this.currentState
             }
             const result = await response.json()
-            this.currentState.power = result.data.attr.power as boolean
-            this.currentState.currentTemp = result.data.attr.temp_now
-            this.currentState.targetTemp = result.data.attr.temp_set
-            this.currentState.heatingOn = result.data.attr.heat_power as boolean
-            this.currentState.filterOn = result.data.attr.filter_power as boolean
-            this.currentState.wavesOn = result.data.attr.wave_power as boolean
-            this.currentState.lastFetch = new Date()
+            if (result.data.attr.power === undefined) {
+                this.platform.log.debug('Hottub seems to be not connected, therefore api returned nothing - setting default values')
+                this.currentState.power = false
+                this.currentState.currentTemp = 25
+                this.currentState.targetTemp = 25
+                this.currentState.heatingOn = false
+                this.currentState.filterOn = false
+                this.currentState.wavesOn = false
+                this.currentState.lastFetch = new Date()
+            } else {
+                this.currentState.power = result.data.attr.power as boolean
+                this.currentState.currentTemp = result.data.attr.temp_now
+                this.currentState.targetTemp = result.data.attr.temp_set
+                this.currentState.heatingOn = result.data.attr.heat_power as boolean
+                this.currentState.filterOn = result.data.attr.filter_power as boolean
+                this.currentState.wavesOn = result.data.attr.wave_power as boolean
+                this.currentState.lastFetch = new Date()
+            }
 
             this.powerService.getCharacteristic(this.platform.Characteristic.On).updateValue(this.currentState.power)
             this.filterService.getCharacteristic(this.platform.Characteristic.On).updateValue(this.currentState.filterOn)

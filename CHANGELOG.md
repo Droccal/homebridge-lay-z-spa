@@ -1,3 +1,7 @@
+## [1.1.1] 19.10.2022
+- fix spamming logs with undefined characteristics 
+  - when HotTub is not connected and api delivers nothing
+
 ## [1.1.0] 01.07.2022
 - update all characteristics so home app shows changes immediately
 
