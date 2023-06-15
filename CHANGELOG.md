@@ -1,3 +1,9 @@
+## [1.2.0] 15.06.2023
+- adapt to api changes done from bestways
+  - using the new api
+  - big thanks to https://github.com/schoendort/lazy_spa where I could see how requests are done
+- currently it has not the best state of development, but it works at least, I will work on the plugin as soon as possible to make it reliable
+
 ## [1.1.1] 19.10.2022
 - fix spamming logs with undefined characteristics 
   - when HotTub is not connected and api delivers nothing
